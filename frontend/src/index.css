@@ -1,0 +1,953 @@
+/* Tailwind CSS */
+@import "tailwindcss";
+
+/* Brand theme — Warm Cinematic Café Palette */
+@theme {
+  --color-warm-cream: #FDF0F0;
+  --color-card-cream: #FFFDF9;
+  --color-dark-gold: #C69214;
+  --color-dark-gold-hover: #A6780C;
+  --color-coffee-brown: #4B352A;
+  --color-coffee-brown-dark: #37261E;
+  --color-rich-black: #1F1F1F;
+  --color-light-beige: #E7DCCB;
+  
+  /* Compatibility aliases */
+  --color-cream: #FDF0F0;
+  --color-cream-soft: #FFFDF9;
+  --color-espresso: #1F1F1F;
+  --color-espresso-deep: #37261E;
+  --color-gold: #C69214;
+  --color-gold-hover: #A6780C;
+  --color-latte: #E7DCCB;
+  --color-mocha: #4B352A;
+  --color-burgundy: #C69214;
+  --color-burgundy-light: #A6780C;
+  --color-coffee: #4B352A;
+  --color-coffee-light: #6E5142;
+  --color-dark-brown: #1F1F1F;
+  --color-steam: #655B54;
+
+  --font-serif: "Playfair Display", "Cinzel", "Fraunces", Georgia, serif;
+  --font-display: "Playfair Display", "Cinzel", "Fraunces", Georgia, serif;
+  --font-sans: "Poppins", "Inter", "Outfit", system-ui, sans-serif;
+}
+
+/* Base styles */
+html {
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: #FDF0F0;
+  color: #1F1F1F;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Prevent inputs/selects from keeping a large intrinsic min-width inside
+   flex rows — they must shrink so sibling buttons stay fully visible
+   (e.g. the Menu search button on mobile/iOS Safari). */
+input,
+textarea,
+select {
+  min-width: 0;
+}
+
+/* Smooth page feel */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom premium card shadow */
+.shadow-warm-soft {
+  box-shadow: 0 10px 30px -5px rgba(75, 53, 42, 0.05), 0 4px 12px -2px rgba(75, 53, 42, 0.03);
+}
+
+.shadow-warm-hover {
+  box-shadow: 0 20px 40px -10px rgba(75, 53, 42, 0.12), 0 8px 16px -4px rgba(75, 53, 42, 0.06);
+}
+
+.shadow-gold-glow {
+  box-shadow: 0 8px 24px -4px rgba(198, 146, 20, 0.35);
+}
+
+/* Link hover underline animation */
+.hover-underline-gold {
+  position: relative;
+}
+.hover-underline-gold::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #C69214;
+  transition: width 300ms ease-in-out;
+}
+.hover-underline-gold:hover::after {
+  width: 100%;
+}
+
+/* Hide scrollbar for category filter horizontal scroll */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Fade-up animation */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+
+.animate-fade-up-delay {
+  animation: fade-up 0.6s ease-out 0.15s both;
+}
+
+.animate-fade-up-delay-2 {
+  animation: fade-up 0.6s ease-out 0.3s both;
+}
+
+.animate-fade-up-delay-3 {
+  animation: fade-up 0.6s ease-out 0.45s both;
+}
+
+/* Mobile nav slide down */
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Subtle float animation for hero image */
+@keyframes soft-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(0.5deg); }
+}
+
+.animate-soft-float {
+  animation: soft-float 5s ease-in-out infinite;
+}
+
+/* ── Real-time Notification Animations ──────────────────────────── */
+@keyframes toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(64px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-toast-slide-in {
+  animation: toast-slide-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes toast-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-toast-pop {
+  animation: toast-pop 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Confetti sparkles for the reward-claimed celebration popup */
+@keyframes confetti-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.5) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.15) rotate(120deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-16px) scale(1) rotate(240deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-28px) scale(0.6) rotate(360deg);
+  }
+}
+
+.confetti-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #C69214, #F3CE6B);
+  box-shadow: 0 0 8px rgba(198, 146, 20, 0.55);
+  opacity: 0;
+  animation: confetti-pop 2.4s ease-in-out infinite;
+}
+
+/* ── Order In-Making Popup ────────────────────────────────────────── */
+@keyframes order-glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 18px rgba(198, 146, 20, 0.4),
+      0 0 42px rgba(198, 146, 20, 0.22),
+      inset 0 0 24px rgba(198, 146, 20, 0.08);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(198, 146, 20, 0.7),
+      0 0 70px rgba(198, 146, 20, 0.35),
+      inset 0 0 36px rgba(198, 146, 20, 0.16);
+  }
+}
+
+.order-in-making {
+  animation:
+    toast-pop 0.35s cubic-bezier(0.16, 1, 0.3, 1) both,
+    order-glow-pulse 1.8s ease-in-out 0.35s infinite;
+}
+
+@keyframes text-shimmer {
+  0% {
+    background-position: 200% 50%;
+  }
+  100% {
+    background-position: -200% 50%;
+  }
+}
+
+.order-in-making-text {
+  background: linear-gradient(90deg, #C69214, #F5D06B, #FFF3C9, #C69214);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shimmer 2.6s linear infinite;
+}
+
+/* ── Premium 3D Pop-Out Button Styles ────────────────────────────── */
+.btn-3d-gold {
+  border-radius: 4px;
+  background: linear-gradient(180deg, #C69214 0%, #A97400 100%);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 14px 28px;
+  box-shadow: 
+    0 6px 14px rgba(0, 0, 0, 0.18), 
+    0 12px 28px rgba(184, 134, 11, 0.28), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-3d-gold:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.03);
+  background: linear-gradient(180deg, #D49D18 0%, #B67E04 100%);
+  box-shadow: 
+    0 10px 20px rgba(0, 0, 0, 0.22), 
+    0 16px 36px rgba(198, 146, 20, 0.4), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.btn-3d-gold:active:not(:disabled) {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.2), 
+    0 4px 10px rgba(184, 134, 11, 0.2), 
+    inset 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn-3d-gold:focus-visible {
+  outline: 2px solid #C69214;
+  outline-offset: 3px;
+}
+
+/* Small 3D Gold Button */
+.btn-3d-gold-sm {
+  border-radius: 4px;
+  background: linear-gradient(180deg, #C69214 0%, #A97400 100%);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 10px 20px;
+  box-shadow: 
+    0 4px 10px rgba(0, 0, 0, 0.15), 
+    0 8px 20px rgba(184, 134, 11, 0.25), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-3d-gold-sm:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.03);
+  background: linear-gradient(180deg, #D49D18 0%, #B67E04 100%);
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.2), 
+    0 12px 28px rgba(198, 146, 20, 0.35), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.btn-3d-gold-sm:active:not(:disabled) {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Cinematic "View Menu" Button ─────────────────────────────────── */
+.btn-view-menu {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1.5px solid rgba(198, 146, 20, 0.75);
+  background: linear-gradient(180deg, #2B2722 0%, #1C1813 55%, #14100C 100%);
+  color: #C69214;
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.35),
+    0 10px 26px rgba(198, 146, 20, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(198, 146, 20, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-view-menu:hover:not(:disabled) {
+  transform: translateY(-3px);
+  border-color: #C69214;
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.42),
+    0 16px 34px rgba(198, 146, 20, 0.28),
+    0 0 18px rgba(198, 146, 20, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+}
+
+.btn-view-menu:active:not(:disabled) {
+  transform: translateY(1px) scale(0.98);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.btn-view-menu:focus-visible {
+  outline: 2px solid #C69214;
+  outline-offset: 3px;
+}
+
+.view-menu-text {
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: 0.18em;
+  background: linear-gradient(180deg, #F5D06B 0%, #C69214 55%, #A97400 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Click animation: press down -> flash -> scale back up, ~300ms */
+.view-menu-clicked {
+  animation: view-menu-press 0.3s ease;
+}
+
+@keyframes view-menu-press {
+  0% { transform: scale(1); }
+  35% { transform: scale(0.94) translateY(2px); }
+  70% { transform: scale(1.04) translateY(-1px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+/* Camera/reel element spins subtly during the click */
+.view-menu-reel {
+  transition: transform 0.3s ease;
+}
+
+.view-menu-clicked .view-menu-reel {
+  animation: view-menu-reel-spin 0.3s ease;
+}
+
+@keyframes view-menu-reel-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.15); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Brief film-reel / camera flash overlay */
+.view-menu-flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 240, 180, 0.55) 0%,
+    rgba(198, 146, 20, 0.15) 40%,
+    transparent 72%
+  );
+  opacity: 0;
+  pointer-events: none;
+}
+
+.view-menu-clicked .view-menu-flash {
+  animation: view-menu-flash 0.3s ease;
+}
+
+@keyframes view-menu-flash {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Subtle film-strip sprocket detail along the left edge */
+.view-menu-sprockets {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 62%;
+  border-radius: 3px;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 4px,
+    rgba(198, 146, 20, 0.4) 4px,
+    rgba(198, 146, 20, 0.4) 6px,
+    transparent 6px,
+    transparent 11px
+  );
+}
+
+/* Add to Cart 3D Button */
+.btn-add-cart {
+  border-radius: 4px;
+  background-color: #ffffff;
+  border: 1.5px solid #C69214;
+  color: #C69214;
+  font-weight: 600;
+  padding: 10px 20px;
+  box-shadow: 
+    0 4px 12px rgba(75, 53, 42, 0.08), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-add-cart:hover:not(:disabled) {
+  background: linear-gradient(180deg, #C69214 0%, #A97400 100%);
+  color: #ffffff;
+  border-color: #C69214;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 
+    0 8px 20px rgba(198, 146, 20, 0.38), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.btn-add-cart:active:not(:disabled) {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: 0 2px 6px rgba(198, 146, 20, 0.2);
+}
+
+/* Category Pill Filter Buttons */
+.btn-category-pill {
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 8px rgba(75, 53, 42, 0.08);
+}
+
+.btn-category-pill:hover:not(.active) {
+  transform: translateY(-2px) scale(1.05);
+  border-color: #C69214;
+  background-color: #FFFDF9;
+  box-shadow: 0 6px 14px rgba(75, 53, 42, 0.12);
+}
+
+.btn-category-pill.active {
+  background: linear-gradient(180deg, #C69214 0%, #A97400 100%);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 
+    0 6px 16px rgba(198, 146, 20, 0.38), 
+    0 0 14px rgba(198, 146, 20, 0.4), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transform: scale(1.05);
+}
+
+.btn-category-pill:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-category-pill:focus-visible {
+  outline: 2px solid #C69214;
+  outline-offset: 2px;
+}
+
+/* Admin Filter Pill Buttons */
+.btn-pill-admin {
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.75rem;
+  padding: 0.375rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.btn-pill-admin.active {
+  background: linear-gradient(180deg, #C69214 0%, #A97400 100%);
+  color: #ffffff;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 12px rgba(198, 146, 20, 0.35);
+}
+
+.btn-pill-admin:not(.active) {
+  background: #ffffff;
+  border: 1px solid #E7DCCB;
+  color: #655B54;
+}
+
+.btn-pill-admin:not(.active):hover {
+  border-color: #C69214;
+  color: #1F1F1F;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(75, 53, 42, 0.1);
+}
+
+.btn-pill-admin:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* Generic 3D pop-out effect for flat buttons */
+.btn-3d-flat {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-3d-flat:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(75, 53, 42, 0.1);
+}
+
+.btn-3d-flat:active:not(:disabled) {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 2px 4px rgba(75, 53, 42, 0.08);
+}
+
+/* 3D effect for outline/secondary buttons */
+.btn-3d-outline {
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.btn-3d-outline:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(75, 53, 42, 0.1);
+}
+
+.btn-3d-outline:active:not(:disabled) {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 2px 4px rgba(75, 53, 42, 0.08);
+}
+
+/* Tab pill button for Offers page */
+.btn-tab-pill {
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  line-height: 1;
+}
+
+.btn-tab-pill.active {
+  background: linear-gradient(180deg, #C69214 0%, #A97400 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(198, 146, 20, 0.35);
+}
+
+.btn-tab-pill:not(.active) {
+  background: transparent;
+  color: #655B54;
+}
+
+.btn-tab-pill:not(.active):hover {
+  color: #1F1F1F;
+  transform: translateY(-1px);
+}
+
+.btn-tab-pill:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-tab-pill:focus-visible {
+  outline: 2px solid #C69214;
+  outline-offset: 2px;
+}
+
+/* ── Smooth Scroll Offset for Sticky Navbar ─────────────────────── */
+html {
+  scroll-padding-top: 92px;
+}
+
+/* ── Logo / Brand Wave Hover Animation ──────────────────────────── */
+@keyframes wave-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  20% {
+    transform: translateY(-4px) rotate(-1.5deg);
+  }
+  40% {
+    transform: translateY(-1px) rotate(0.8deg);
+  }
+  60% {
+    transform: translateY(-5px) rotate(-0.8deg);
+  }
+  80% {
+    transform: translateY(-2px) rotate(0.5deg);
+  }
+}
+
+@keyframes wave-underline {
+  0% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 200% 100%;
+  }
+}
+
+.animate-wave-logo {
+  animation: wave-float 0.8s ease-in-out infinite;
+}
+
+.animate-wave-text {
+  background-image: linear-gradient(90deg, #C69214, #FFFDF9, #C69214);
+  background-size: 200% 2px;
+  background-repeat: no-repeat;
+  background-position: 0% 100%;
+  animation: wave-underline 1.2s ease-in-out infinite;
+  padding-bottom: 2px;
+}
+
+/* ── Responsive Utility Classes ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-up-delay,
+  .animate-fade-up-delay-2,
+  .animate-fade-up-delay-3,
+  .animate-slide-down,
+  .animate-soft-float,
+  .animate-wave-logo,
+  .animate-wave-text,
+  .animate-toast-slide-in,
+  .animate-toast-pop,
+  .animate-slate-in,
+  .confetti-dot,
+  .view-menu-clicked,
+  .view-menu-clicked .view-menu-reel,
+  .view-menu-clicked .view-menu-flash {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .animate-fade-up,
+  .animate-fade-up-delay,
+  .animate-fade-up-delay-2,
+  .animate-fade-up-delay-3 {
+    animation-duration: 0.4s !important;
+  }
+}
+
+/* Hide scrollbar on mobile category filters */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Cinematic Film Slate — Header & Footer ─────────────────────── */
+
+/* Clapboard strip: alternating diagonal black/cream stripes */
+.clapboard-strip {
+  position: relative;
+  height: 26px;
+  background: repeating-linear-gradient(-45deg, #14110E 0 22px, #E6D8C3 22px 44px);
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, 0.35),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.65),
+    0 4px 12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  border-bottom: 2px solid #C69214;
+}
+
+/* Soft highlight for 3D depth on the stripes */
+.clapboard-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.05) 35%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+  pointer-events: none;
+}
+
+/* Metal clapper hinge bracket (top-left of header/footer) */
+.clapboard-hinge {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  width: 44px;
+  height: 100%;
+  background: linear-gradient(135deg, #2D2D2D 0%, #151515 50%, #3D3D3D 100%);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(0, 0, 0, 0.8);
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+/* Metallic screw rivet detail */
+.slate-rivet {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #B0B0B0 30%, #404040 70%, #1A1A1A 100%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  position: relative;
+}
+.slate-rivet::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.7);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* Metallic corner screw heads for slate frame */
+.screw-head {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #E6E6E6 0%, #888888 40%, #333333 85%, #111111 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  position: relative;
+  display: inline-block;
+  shrink: 0;
+}
+.screw-head::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 15%;
+  right: 15%;
+  height: 1.5px;
+  background: #111111;
+  transform: translateY(-50%) rotate(35deg);
+}
+
+/* Dark charcoal slate surface with subtle metallic & chalk texture */
+.slate-surface {
+  background:
+    radial-gradient(120% 90% at 50% -20%, rgba(198, 146, 20, 0.12), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0.15) 100%),
+    linear-gradient(180deg, #181411 0%, #221B16 50%, #171310 100%);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Film perforation (sprocket) divider line */
+.film-sprocket {
+  height: 6px;
+  background-image: radial-gradient(rgba(231, 220, 203, 0.45) 1.5px, transparent 2px);
+  background-size: 18px 6px;
+  background-position: center;
+  background-repeat: repeat-x;
+}
+
+/* Thin chalk/gold cinematic divider */
+.cinema-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(198, 146, 20, 0.6), transparent);
+}
+
+/* Slate vertical chalk line divider for columns */
+.slate-divider-v {
+  width: 1px;
+  background: linear-gradient(180deg, transparent 0%, rgba(231, 220, 203, 0.25) 20%, rgba(231, 220, 203, 0.25) 80%, transparent 100%);
+}
+
+/* Film slate header labels (PROD., SCENE, TAKE, ROLL, etc.) */
+.slate-label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #C69214;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+}
+
+/* Slate box container (frame feel) */
+.slate-box {
+  border: 1px solid rgba(198, 146, 20, 0.35);
+  background: rgba(18, 14, 12, 0.65);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.8),
+    0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* Slate Table Info Badge (Header) */
+.slate-table-badge {
+  border: 1.5px solid rgba(198, 146, 20, 0.5);
+  background: linear-gradient(180deg, #1E1914 0%, #120F0D 100%);
+  border-radius: 8px;
+  padding: 4px 12px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Viewfinder corner brackets (film frame feel) */
+.viewfinder-corners::before,
+.viewfinder-corners::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: rgba(198, 146, 20, 0.45);
+  border-style: solid;
+  pointer-events: none;
+}
+.viewfinder-corners::before {
+  top: 10px;
+  left: 12px;
+  border-width: 1.5px 0 0 1.5px;
+  border-radius: 4px 0 0 0;
+}
+.viewfinder-corners::after {
+  bottom: 10px;
+  right: 12px;
+  border-width: 0 1.5px 1.5px 0;
+  border-radius: 0 0 4px 0;
+}
+
+/* Header entrance animation */
+@keyframes slate-in {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slate-in {
+  animation: slate-in 0.45s ease-out both;
+}
+
+/* Footer hover transitions */
+.footer-hover {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.footer-hover:hover {
+  color: #C69214;
+}
+
+/* Responsive: keep the clapboard strip compact on tablets/mobile */
+@media (max-width: 767px) {
+  .clapboard-strip {
+    height: 16px;
+    background: repeating-linear-gradient(-45deg, #14110E 0 14px, #E6D8C3 14px 28px);
+  }
+  .clapboard-hinge {
+    width: 28px;
+    left: 6px;
+  }
+  .slate-rivet {
+    width: 5px;
+    height: 5px;
+  }
+  .slate-label {
+    font-size: 9.5px;
+    letter-spacing: 0.15em;
+  }
+}
+
